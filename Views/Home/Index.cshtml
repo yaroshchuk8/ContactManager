@@ -9,6 +9,16 @@
 </head>
 
 <div class="container">
+    <div>
+        <h1>Upload CSV File</h1>
+        <form asp-controller="Home" asp-action="Upload" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="file" name="csvFile" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+    
     <div class="row pt-4 pb-3">
         <div class="col-6">
             <h2 class="text-primary">Contact Table</h2>

@@ -1,5 +1,6 @@
 using ContactManager.Data;
 using ContactManager.Models;
+using ContactManager.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -9,11 +10,13 @@ namespace ContactManager.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
+        private readonly CsvService _csvService;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, CsvService csvService)
         {
             _logger = logger;
             _context = context;
+            _csvService = csvService;
         }
 
         public IActionResult Index()
@@ -41,6 +44,39 @@ namespace ContactManager.Controllers
                 }
             }
             return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public IActionResult Upload(IFormFile csvFile)
+        {
+            if (csvFile != null && csvFile.Length > 0)
+            {
+                using (var stream = csvFile.OpenReadStream())
+                {
+                    try
+                    {
+                        var contacts = _csvService.ReadCsvFile(stream);
+
+                        _context.Contacts.AddRange(contacts);
+                        _context.SaveChanges();
+                    }
+                    catch (ApplicationException ex)
+                    {
+                        ModelState.AddModelError(string.Empty, ex.Message);
+                        _logger.Log(LogLevel.Debug, ex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError(string.Empty, $"An unexpected error occurred: {ex.Message}");
+                        _logger.Log(LogLevel.Debug, ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Please select a valid CSV file.");
+            }
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
