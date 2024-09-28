@@ -19,6 +19,7 @@
                 <th>Married</th>
                 <th>Phone</th>
                 <th>Salary</th>
+                <th style="width:15%"></th>
             </tr>
         </thead>
         <tbody>
@@ -26,22 +27,34 @@
             {
                 <tr id="row-@c.Id">
                     <td>
-                        <span>@c.Name</span>                        
+                        <span id="name-view" class="view-mode">@c.Name</span>
+                        <input id="name-edit" type="text" class="edit-mode" style="display:none;" value="@c.Name" />
                     </td>
                     <td>
-                        <span>@c.DateOfBirth.ToShortDateString()</span>                        
+                        <span id="dateofbirth-view" class="view-mode">@c.DateOfBirth.ToShortDateString()</span>
+                        <input id="dateofbirth-edit" type="date" class="edit-mode" style="display:none;" value="@c.DateOfBirth.ToString("yyyy-MM-dd")" />
                     </td>
                     <td>
-                        <span>@c.Married</span>                        
+                        <span id="married-view" class="view-mode">@c.Married</span>
+                        <input id="married-edit" type="checkbox" class="edit-mode form-check-input" style="display:none;" @(c.Married ? "checked" : "") />
                     </td>
                     <td>
-                        <span>@c.Phone</span>                       
+                        <span id="phone-view" class="view-mode">@c.Phone</span>
+                        <input id="phone-edit" type="text" class="edit-mode" style="display:none;" value="@c.Phone" />
                     </td>
                     <td>
-                        <span>@c.Salary</span>
+                        <span id="salary-view" class="view-mode">@c.Salary</span>
+                        <input id="salary-edit" type="number" class="edit-mode" style="display:none;" value="@c.Salary.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-primary edit-btn" onclick="editRow(@c.Id)">Edit</button>
+                        <button class="btn btn-sm btn-success save-btn" style="display:none;" onclick="saveRow(@c.Id)">Save</button>
+                        <button class="btn btn-sm btn-secondary cancel-btn" style="display:none;" onclick="cancelEdit(@c.Id)">Cancel</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+<script src="~/js/inlineEditing.js"></script>
