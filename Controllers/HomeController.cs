@@ -84,17 +84,19 @@ namespace ContactManager.Controllers
         {
             if (id == null || id == 0)
             {
-                return NotFound();
+                return Json(new { success = false, message = "Invalid ID" });
             }
+
             Contact contactToDelete = _context.Contacts.Find(id);
             if (contactToDelete == null)
             {
-                return NotFound();
+                return Json(new { success = false, message = "Contact not found" });
             }
+
             _context.Contacts.Remove(contactToDelete);
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Json(new { success = true, message = "Contact deleted successfully", contactId = id });
         }
 
         public IActionResult Privacy()

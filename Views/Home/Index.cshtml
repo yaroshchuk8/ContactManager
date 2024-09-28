@@ -64,7 +64,8 @@
                         <button class="btn btn-sm btn-primary edit-btn" onclick="editRow(@c.Id)">Edit</button>
                         <button class="btn btn-sm btn-success save-btn" style="display:none;" onclick="saveRow(@c.Id)">Save</button>
                         <button class="btn btn-sm btn-secondary cancel-btn" style="display:none;" onclick="cancelEdit(@c.Id)">Cancel</button>
-                        <a class="btn btn-sm btn-danger delete-btn cancel-btn" data-url="@Url.Action("Delete", "Home", new { id = @c.Id })">Delete</a>
+                        <button class="btn btn-sm btn-danger" onclick="Delete(@c.Id)">Delete</button>
+                        @* <a class="btn btn-sm btn-danger delete-btn cancel-btn" data-url="@Url.Action("Delete", "Home", new { id = @c.Id })">Delete</a> *@
                     </td>
                 </tr>
             }
