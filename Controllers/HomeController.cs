@@ -79,6 +79,24 @@ namespace ContactManager.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Contact contactToDelete = _context.Contacts.Find(id);
+            if (contactToDelete == null)
+            {
+                return NotFound();
+            }
+            _context.Contacts.Remove(contactToDelete);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();

@@ -64,6 +64,7 @@
                         <button class="btn btn-sm btn-primary edit-btn" onclick="editRow(@c.Id)">Edit</button>
                         <button class="btn btn-sm btn-success save-btn" style="display:none;" onclick="saveRow(@c.Id)">Save</button>
                         <button class="btn btn-sm btn-secondary cancel-btn" style="display:none;" onclick="cancelEdit(@c.Id)">Cancel</button>
+                        <a class="btn btn-sm btn-danger delete-btn cancel-btn" data-url="@Url.Action("Delete", "Home", new { id = @c.Id })">Delete</a>
                     </td>
                 </tr>
             }
@@ -84,8 +85,12 @@
 @* resources needed to use DataTable library *@
 <script src="//code.jquery.com/jquery-3.7.1.js"></script>
 <script src="//cdn.datatables.net/2.1.7/js/dataTables.min.js"></script>
+@* library for responsive data delition *@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @* script for inline editing *@
 <script src="~/js/inlineEditing.js"></script>
 @* script for ordering, filtering and pagination *@
 <script src="~/js/dataTable.js"></script>
+@* script for record deletion *@
+<script src="~/js/itemDeletion.js"></script>
