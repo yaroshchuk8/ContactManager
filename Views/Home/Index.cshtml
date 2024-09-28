@@ -4,6 +4,10 @@
     ViewData["Title"] = "Contacts";
 }
 
+<head>
+    <link rel="stylesheet" href="//cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css" />
+</head>
+
 <div class="container">
     <div class="row pt-4 pb-3">
         <div class="col-6">
@@ -54,7 +58,24 @@
                 </tr>
             }
         </tbody>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Date of birth</th>
+                <th>Married</th>
+                <th>Phone</th>
+                <th>Salary</th>
+                <td style="width:15%"></td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
+@* resources needed to use DataTable library *@
+<script src="//code.jquery.com/jquery-3.7.1.js"></script>
+<script src="//cdn.datatables.net/2.1.7/js/dataTables.min.js"></script>
+
+@* script for inline editing *@
 <script src="~/js/inlineEditing.js"></script>
+@* script for ordering, filtering and pagination *@
+<script src="~/js/dataTable.js"></script>
